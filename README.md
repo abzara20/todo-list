@@ -35,3 +35,6 @@ Live link: [Todo List App](http://localhost:8000)
 ### step 3) add branch to github
 
 `git push --set-upstream origin name-of-branch`
+
+install semantic ui
+` npm i -s semantic-ui-css semantic-ui-react`
