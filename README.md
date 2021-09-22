@@ -36,5 +36,9 @@ Live link: [Todo List App](http://localhost:8000)
 
 `git push --set-upstream origin name-of-branch`
 
+## Copying code from another branch
+
+`git merge name-of-other-branch`
+
 install semantic ui
 ` npm i -s semantic-ui-css semantic-ui-react`
