@@ -59,7 +59,7 @@ const HomePage = () => {
   function closeEditTask() {
     setShowEdit(-1);
   }
-  // tjos will be the function that will edit a specific task
+  // this will be the function that will edit a specific task
   function editTask(index, newValues) {
     console.log("edit ", index);
     const newList = list.map((task, i) => {
@@ -74,8 +74,17 @@ const HomePage = () => {
     // this above gonna change the list to the current one with the changes
   }
 
-  function deleteTask() {
+  function deleteTask(index) {
     // LOOKUP: Array.filter
+    console.log(index);
+
+    // bruh, TODO: ask miguel how this works again since he walked you through the logic
+    // but u didn't type
+    const filterList = list.filter((task, i) => {
+      return i !== index;
+    });
+
+    setList(filterList);
   }
 
   // it does just like the comments below, but instead of doing it in two sections, it does it in one
@@ -86,6 +95,7 @@ const HomePage = () => {
         name={task.name}
         color={task.color}
         editTask={openEditTask}
+        deleteTask={deleteTask}
         index={index}
       />
     );
