@@ -5,13 +5,18 @@ import { List, Grid, Label, Button } from "semantic-ui-react";
 //import {Link} from 'gatsby';
 
 // here we are accepting props, from the home page where we use them as components
-const Task = ({ name, color, editTask, index }) => {
+const Task = ({ name, color, editTask, deleteTask, index }) => {
   // console log to check if they are there
   //   console.log(name, color);
 
   function editCurrentTask() {
     editTask(index);
   }
+
+  function deleteCurrentTask() {
+    deleteTask(index);
+  }
+
   return (
     <React.Fragment>
       <List.Item>
@@ -23,7 +28,11 @@ const Task = ({ name, color, editTask, index }) => {
             </Label>
           </Grid.Column>
           <Grid.Column textAlign="right">
-            <Button icon="trash" color="red"></Button>
+            <Button
+              onClick={deleteCurrentTask}
+              icon="trash"
+              color="red"
+            ></Button>
             {/* instead of editTask, we are using this to edit the specific task */}
             <Button
               onClick={editCurrentTask}

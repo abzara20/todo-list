@@ -4,6 +4,7 @@ import { Header, Container, Button, Grid, List } from "semantic-ui-react";
 
 import Task from "../components/Task";
 import NewTaskForm from "../components/NewTaskForm";
+import EditTaskForm from "../components/EditTaskForm";
 
 const HomePage = () => {
   // let newTaskOpen = false;
@@ -45,15 +46,27 @@ const HomePage = () => {
     // closes menu
     closeNewTask();
   }
+  // getter and setter for the edit task, with a default value that will make the openEdit task start false
+  const [showEdit, setShowEdit] = React.useState(-1);
+  // open the form to edit current task
+  function openEditTask(index) {
+    // here we are taking the index to open the form, either by checking if it is not a number OR if it is greater than 1
+    // since index starts at 0
+    setShowEdit(index);
+    console.log("test");
+  }
 
-  // tjos will be the function that will edit a specific task
-  function editTask(index) {
+  function closeEditTask() {
+    setShowEdit(-1);
+  }
+  // this will be the function that will edit a specific task
+  function editTask(index, newValues) {
     console.log("edit ", index);
     const newList = list.map((task, i) => {
       if (i !== index) return task;
       return {
-        name: `Edit ${task.name}`,
-        color: task.color,
+        name: newValues.name,
+        color: newValues.color,
       };
     });
 
@@ -61,18 +74,28 @@ const HomePage = () => {
     // this above gonna change the list to the current one with the changes
   }
 
-  function deleteTask() {
+  function deleteTask(index) {
     // LOOKUP: Array.filter
+    console.log(index);
+
+    // bruh, TODO: ask miguel how this works again since he walked you through the logic
+    // but u didn't type
+    const filterList = list.filter((task, i) => {
+      return i !== index;
+    });
+
+    setList(filterList);
   }
 
-  // it does just like the above, but instead of doing it in two sections, it does it in one
+  // it does just like the comments below, but instead of doing it in two sections, it does it in one
   const taskList = list.map((task, index) => {
     return (
       <Task
         key={`${task.name}-${index}`}
         name={task.name}
         color={task.color}
-        editTask={editTask}
+        editTask={openEditTask}
+        deleteTask={deleteTask}
         index={index}
       />
     );
@@ -105,7 +128,6 @@ const HomePage = () => {
             <Button color="green" icon="plus" onClick={openNewTask}></Button>
           </Grid.Column>
         </Grid>
-
         {/* this is an if else, to check if true or false, if true, display the menu, if false, display nothing*/}
         {newTaskOpen ? (
           <NewTaskForm
@@ -119,11 +141,21 @@ const HomePage = () => {
         <List>
           {/* the colors are lowercase bc this is the only way this will work */}
           {/* <Task name="Task 1" color="yellow"></Task>
-          <Task name="Task 2" color="red"></Task>
           {/* doesn't matter if they are self-closing or not */}
           {/* <Task name="Task 3" color="pink" /> */}
           {taskList}
         </List>
+
+        {/* this is the trunary that will send the index, in showEdit, and the array of tasks in list, and the function to  
+        close the edit form, we don't need to send the open bc it opens with the pencil*/}
+        {showEdit > -1 ? (
+          <EditTaskForm
+            index={showEdit}
+            list={list}
+            closeForm={closeEditTask}
+            editTask={editTask}
+          ></EditTaskForm>
+        ) : null}
       </Container>
     </React.Fragment>
   );
