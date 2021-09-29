@@ -54,6 +54,21 @@ const NewTaskForm = ({ closeNewTask, newTask, setNewTask, addNewTask }) => {
             name="color"
             onChange={changeNewTask}
           />
+          <Form.Field
+            control={Select}
+            label="Task Priority"
+            placeholder="level of priority"
+            options={[
+              { text: "1", value: 1 },
+              { text: "2", value: 2 },
+              { text: "3", value: 3 },
+              { text: "4", value: 4 },
+            ]}
+            // make sure the name is the same as the value
+            value={newTask.rating}
+            name="rating"
+            onChange={changeNewTask}
+          />
           {/* Adding a button group, we can do some cool things here, and we put a button or, which adds a cool little circle with 'or' in it*/}
           <Button.Group fluid>
             <Button type="button" color="red" onClick={closeNewTask}>

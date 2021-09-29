@@ -13,6 +13,7 @@ const HomePage = () => {
   const initialNewTask = {
     name: "",
     color: "",
+    rating: 1,
   };
 
   // this is a getter to get the state of the new task, the first part, the second is a setter to change the state
@@ -20,6 +21,7 @@ const HomePage = () => {
   const [newTask, setNewTask] = React.useState({
     name: "",
     color: "",
+    rating: 1,
   });
 
   // creating a setter and list for the array of the list of objects
@@ -46,8 +48,10 @@ const HomePage = () => {
     // closes menu
     closeNewTask();
   }
+  // ******EDIT FUNCTION*****
   // getter and setter for the edit task, with a default value that will make the openEdit task start false
   const [showEdit, setShowEdit] = React.useState(-1);
+
   // open the form to edit current task
   function openEditTask(index) {
     // here we are taking the index to open the form, either by checking if it is not a number OR if it is greater than 1
@@ -56,9 +60,11 @@ const HomePage = () => {
     console.log("test");
   }
 
+  // close edit task form
   function closeEditTask() {
     setShowEdit(-1);
   }
+
   // this will be the function that will edit a specific task
   function editTask(index, newValues) {
     console.log("edit ", index);
@@ -67,6 +73,7 @@ const HomePage = () => {
       return {
         name: newValues.name,
         color: newValues.color,
+        rating: newValues.rating,
       };
     });
 
@@ -94,7 +101,8 @@ const HomePage = () => {
         key={`${task.name}-${index}`}
         name={task.name}
         color={task.color}
-        editTask={openEditTask}
+        rating={task.rating}
+        openEditTask={openEditTask}
         deleteTask={deleteTask}
         index={index}
       />
@@ -138,14 +146,6 @@ const HomePage = () => {
           />
         ) : null}
 
-        <List>
-          {/* the colors are lowercase bc this is the only way this will work */}
-          {/* <Task name="Task 1" color="yellow"></Task>
-          {/* doesn't matter if they are self-closing or not */}
-          {/* <Task name="Task 3" color="pink" /> */}
-          {taskList}
-        </List>
-
         {/* this is the trunary that will send the index, in showEdit, and the array of tasks in list, and the function to  
         close the edit form, we don't need to send the open bc it opens with the pencil*/}
         {showEdit > -1 ? (
@@ -156,6 +156,14 @@ const HomePage = () => {
             editTask={editTask}
           ></EditTaskForm>
         ) : null}
+
+        <List>
+          {/* the colors are lowercase bc this is the only way this will work */}
+          {/* <Task name="Task 1" color="yellow"></Task>
+          {/* doesn't matter if they are self-closing or not */}
+          {/* <Task name="Task 3" color="pink" /> */}
+          {taskList}
+        </List>
       </Container>
     </React.Fragment>
   );
